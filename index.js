@@ -19,20 +19,24 @@ mongoose
   .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log("MongoDB connection error:", err));
 
-// Enable CORS
-const corsOptions = {
-  origin: ["http://localhost:3000", "https://prime-oscar.netlify.app"],
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-};
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Preflight requests
+// const corsOptions = {
+//   origin: [
+//     'http://localhost:3000',
+//     'https://mansety-blog-app-api-nodejs.vercel.app',
+//   ],
+//   credentials: true,
+//   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+//   allowedHeaders: ['Content-Type', 'Authorization'],
+// };
+
+app.use(cors());
+
 
 // Multer configuration
 const storage = multer.diskStorage({
